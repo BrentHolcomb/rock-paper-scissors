@@ -5,18 +5,24 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
+    <p>Open the console and type "game()" to play Rock, Paper, Scissors!</p>
     <script>
         function computerPlay() {
             let play = ["rock", "paper", "scissors"];
+            //generates a random floating point num from 0 to 3, then gives the closest lower int (0, 1, or 2)
             let start = Math.floor(Math.random() * 3);
+            //slices the array to 1 element and converts to string
             let after = start + 1;
             return play.slice(start, after).toString();
         }
 
         function playRound(playerSelection, computerSelection) {
             playerSelection = playerSelection.toLowerCase();
-            console.log(playerSelection);
-            console.log(computerSelection);
+
+            //logs individual computer and player choices to console 
+            console.log("player: " + playerSelection);
+            console.log("computer: " + computerSelection);
+
             if (playerSelection === computerSelection) {
                 return "Tie";
             } else if ((playerSelection === "rock"
@@ -31,9 +37,39 @@
             }
         }
 
+        //runs 5 games using player's choices and computing 5 computer choices to compare
+        function game() {
+            //the starting tally count of games won
+            let score = 0;
+            //plays 5 games
+            for (let i = 0; i < 5 ; i++) {
+                //calls the playround using new computer choices each time and new user input
+                let roundResult = playRound(prompt("Rock, Paper, or Scissors"),computerPlay());
+                if (roundResult === "Win") {
+                    score++;
+                    console.log("Win");
+                } else if (roundResult === "Lose") {
+                    score--;
+                    console.log("Lose");
+                } else {
+                    console.log("Tie")
+                }
+            }
+            //returns the result of all 5 games
+            if (score > 0) {
+                return "Winner";
+            } else if (score < 0) {
+                return "Loser";
+            } else {return "Nobody Wins"}
+        }
+
+        //establishes starting player choice and computer choice
         const playerSelection = "rock";
         const computerSelection = computerPlay();
-        console.log(playRound(playerSelection,computerSelection));
+
+        //logs a game based on starting choices
+        //console.log(playRound(playerSelection,computerSelection));
+
     </script>
 </body>
 </html>
